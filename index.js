@@ -9,6 +9,9 @@ function S3Storage(opts) {
   if (!opts.bucket) {
     throw new Error('bucket is required');
   }
+  if (!opts.endpoint) {
+    throw new Error('endpoint is required');
+  }
   if (!opts.secretAccessKey) {
     throw new Error('secretAccessKey is required');
   }
