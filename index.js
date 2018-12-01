@@ -60,11 +60,13 @@ S3Storage.prototype._handleFile = function (req, file, cb) {
     var s3options = self.options.s3;
     s3options.ContentType = contentType;
     var outStream = self.s3fs.createWriteStream(filePath, s3options);
+
     gm(file.stream)
-    .thumbnail(`${self.options.gm.width}`, `${self.options.gm.height}`)
+    .resize(self.options.gm.dimensions, null, '>')
     .gravity('Center')
-      .stream(self.options.gm.format || DEFAULT_FORMAT)
-      .pipe(outStream);
+    .stream(self.options.gm.format || DEFAULT_FORMAT)
+    .pipe(outStream);
+
     outStream.on('error', cb);
     outStream.on('finish', function () {
       cb(null, {
