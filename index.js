@@ -68,7 +68,7 @@ S3Storage.prototype._handleFile = function (req, file, cb) {
       cb(null, {
         size: outStream.bytesWritten,
         key: filePath,
-        location: 'https://' + self.options.bucket + '.s3.amazonaws.com/' + filePath
+        location: 'https://' + self.options.bucket + '.' + self.options.endpoint + '/' + filePath
       });
     });
   });
